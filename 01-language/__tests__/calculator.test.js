@@ -1,15 +1,23 @@
+/* 
 function add(){
     function parseArg(n){
         if (Array.isArray(n)) return add.apply(this, n)
         if (typeof n === 'function') return parseArg(n())
         return isNaN(n) ? 0 : Number(n)
     }
-    let sum = 0
-    for (let i = 0; i < arguments.length; i++){
-        sum += parseArg(arguments[i])
-    }
-    return sum
-}
+    return arguments.length <= 1 ? parseArg(arguments[0]) : parseArg(arguments[0]) + add(Array.prototype.slice.call(arguments, 1))
+} 
+*/
+
+function add(...args) {
+  function parseArg(n) {
+    if (Array.isArray(n)) return add(...n);
+    if (typeof n === "function") return parseArg(n());
+    return isNaN(n) ? 0 : Number(n);
+  }
+//   return args.length <= 1 ? parseArg(args[0]) : parseArg(args[0]) + add(args.slice(1));
+  return args.reduce((sum, val) => sum + parseArg(val), 0)
+} 
 
 test("add(100,200) => 300", () => {
     let expected = 300
