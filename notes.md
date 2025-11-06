@@ -34,3 +34,14 @@ nvm install 24
 - https://github.com/tkmagesh/adobe-advjs-nov-2025
 
 
+- Procedural Languages
+- Object Based Languages
+- Object Oriented Languages
+- Functional Languages
+
+```
+JavaScript = Loosely typed + Object Based + Functional + dynamic
+TypeScript = Static typed
+```
+
+### Loosely typed
