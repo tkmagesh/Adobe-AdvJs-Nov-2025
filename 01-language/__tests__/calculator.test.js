@@ -1,12 +1,6 @@
 function add(){
     function parseArg(n){
-        if (Array.isArray(n)) {
-            let sum = 0
-            for (let i = 0; i < n.length; i++){
-                sum += parseArg(n[i])
-            }
-            return sum
-        }
+        if (Array.isArray(n)) return add.apply(this, n)
         if (typeof n === 'function') return parseArg(n())
         return isNaN(n) ? 0 : Number(n)
     }
