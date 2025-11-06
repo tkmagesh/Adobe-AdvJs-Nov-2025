@@ -1,0 +1,30 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Click Counter</title>
+    <script>
+        (function (){ // - Step (1)
+
+            let counter = 0 // - Step (2)
+            
+            function onBtnIncrementClick(){ // - Step (3)
+                counter++ // Step - (4)
+                document.getElementById('spanCounter').innerText = counter;
+            }
+            
+            function onDocumentLoad(){
+                let btnIncrement = document.getElementById('btnIncrement')
+                btnIncrement.addEventListener('click', onBtnIncrementClick) // - Step (5)
+            }
+            window.addEventListener('load', onDocumentLoad)
+        })()
+        // myApp()
+    </script>
+</head>
+<body>
+    <button id="btnIncrement">Increment</button>
+    <div><span id="spanCounter">0</span></div>
+</body>
+</html>

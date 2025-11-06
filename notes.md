@@ -68,3 +68,5 @@ npx tsc --init
 npx ts-jest config:init
 
 ```
+
+### Closures
