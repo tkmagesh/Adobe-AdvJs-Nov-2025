@@ -45,3 +45,26 @@ TypeScript = Static typed
 ```
 
 ### Loosely typed
+
+### Constructor
+    - should be invoked with the "new" keyword
+    - when invoked using "new" keyword
+        - this => new object
+        - `this` is returned by default 
+
+### TypeScript App Setup with Jest
+
+```shell
+# create a package.json file
+npm init -y
+
+# install the dependencies
+npm install --save-dev typescript @types/node jest ts-jest @types/jest
+
+# create the configuration for typescript compiler
+npx tsc --init
+
+# create the configuration for jest
+npx ts-jest config:init
+
+```
