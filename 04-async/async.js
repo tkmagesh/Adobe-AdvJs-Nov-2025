@@ -12,7 +12,7 @@
         console.log(`[@client] result = ${result}`);
     }
 
-    window['addClient'] = addClient;
+    globalThis['addClient'] = addClient;
 
     function addAsyncCallback(x, y, onResult) {
       console.log(`   [@service] processing ${x} and ${y}`);
@@ -30,7 +30,7 @@
       });
     }
 
-    window["addAsyncCallbackClient"] = addAsyncCallbackClient;
+    globalThis["addAsyncCallbackClient"] = addAsyncCallbackClient;
 
     function addAsyncPromise(x, y) {
       console.log(`   [@service] processing ${x} and ${y}`);
@@ -58,7 +58,7 @@
       return 'something dummy!'
     } 
 
-    window["addAsyncPromiseClient_1"] = addAsyncPromiseClient_1;
+    globalThis["addAsyncPromiseClient_1"] = addAsyncPromiseClient_1;
 
     async function addAsyncPromiseClient_2(x, y) {
       console.log(`[@client] invoking the service`);
@@ -67,7 +67,7 @@
       console.log(`[@client] result = ${result}`);
     } 
     
-    window["addAsyncPromiseClient_2"] = addAsyncPromiseClient_2;
+    globalThis["addAsyncPromiseClient_2"] = addAsyncPromiseClient_2;
 
 })()
 
