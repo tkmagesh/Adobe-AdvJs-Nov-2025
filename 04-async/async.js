@@ -71,22 +71,95 @@
 
     // DO NOT USE ASYNC/AWAIT
     function divideAsyncPromise(x,y){
-        /* return a promise with the result of dividing x by y */
+        console.log(`   [@service - divide] processing ${x} and ${y}`);
+        let p = new Promise((resolveFn, rejectFn) => {
+          setTimeout(() => {
+            let result = x / y;
+            console.log(`   [@service - divide] returning result`);
+            // pass on the result to the promise ?
+            resolveFn(result);
+            //   rejectFn(new Error('dummy error:')) //simulate the failure of async operation
+          }, 4000);
+        });
+        return p;
     }
 
+    /* 
     function processNos(x,y,z){
+        let finalPromise = new Promise((resolveFn, rejectFn) => {
+          let p = addAsyncPromise(x, y);
+          p.then((result) => {
+            let p2 = divideAsyncPromise(result, z);
+            p2.then((finalResult) => {
+              resolveFn(finalResult);
+            });
+          });
+        });
+        return finalPromise
+    } 
+    */
+
+    function processNos(x, y, z) {
+      
         /* 
-            use the addAsyncPromise() to add x and y
-            use the divideAsyncPromise() to divide the 'result of add operation' by z
-            return the final result
+        let p = addAsyncPromise(x, y);
+        let resultPromise = p.then((result) => {
+          let p2 = divideAsyncPromise(result, z);
+          return p2
+        });
+        return resultPromise 
         */
+
+        return addAsyncPromise(x,y)
+            .then(result => divideAsyncPromise(result, z))
     }
 
+    // the above function using async/await
+    
+    async function processNosAsyncAwait(x, y, z) {
+        let addresult = await addAsyncPromise(x, y);
+        let finalResult = await divideAsyncPromise(addresult, z)
+        return finalResult
+    }
+   
+
+    /* 
     function processNosClient(){
-        /* invoke processNos with (100, 200, 3) and print the result */
+        let p = processNos(100,200,3)
+        p.then(result => console.log(`final result = ${result}`))
+    } 
+    */
+
+    async function processNosClient() {
+      let result = await processNos(100, 200, 3);
+      console.log(`final result = ${result}`)
     }
 
     globalThis['processNosClient'] = processNosClient
+
+    async function seqProcessNosClient(a, b, c, d){
+        // return (a + b) * (c /d )
+         let addResult = await addAsyncPromise(a, b);
+        let divideResult = await divideAsyncPromise(c, d)
+        console.log('final result = ', addResult * divideResult)
+    }
+
+    globalThis["seqProcessNosClient"] = seqProcessNosClient;
+
+    async function parallelProcessNosClient(a, b, c, d) {
+      // return (a + b) * (c /d )
+      let p1 = addAsyncPromise(a, b);
+      let p2 = divideAsyncPromise(c, d)
+      /* 
+      return Promise.all([p1, p2]).then(([addResult, divideResult]) => {
+        return addResult * divideResult
+      }); 
+      */
+      let [addResult, divideResult]= await Promise.all([p1, p2])
+      return addResult * divideResult
+    }
+
+    globalThis["parallelProcessNosClient"] = parallelProcessNosClient;
 
 })()
 
