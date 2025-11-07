@@ -1,0 +1,70 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Event Loop</title>
+    <script>
+        let divMessages;
+        function displayMessage(msg){
+            divMessages.innerHTML += msg + "<br/>";
+        }
+
+        function doWork(onCompletion, onProgress){
+            let totalIterations = 1000,
+                currentIteration = 0;
+
+            function oneIteration(){
+                for (let i = 0; i < (10000/totalIterations); i++){
+                    for (let j = 0; j < 5000; j++)
+                        for (let k = 0; k < 600; k++){
+                    }
+                }
+                if (++currentIteration > totalIterations){
+                    setTimeout(onCompletion)
+                    return;
+                }
+                if (currentIteration % 10 === 0) {
+                    setTimeout(() => {
+                        let percentCompleted = (currentIteration/totalIterations) * 100
+                        onProgress(percentCompleted)   
+                    });
+                }
+                setTimeout(() => {
+                    oneIteration()
+                });
+            }
+
+            setTimeout(() => {
+                oneIteration()   
+            });
+        }
+        function onBtnDoWorkClick(){
+            displayMessage("Work Started...") // dom updated but not repainted
+            doWork(() => {
+                displayMessage("Work Completed...!") // dom updated but not repainted
+            }, (percentCompleted) => {
+                document.getElementById('workProgress').value = percentCompleted
+            }) // CPU intensive operation
+            
+        }
+        function onDocumentLoad(){
+            let btnDoWork = document.getElementById('btnDoWork')
+            btnDoWork.addEventListener('click', onBtnDoWorkClick);
+
+            divMessages = document.getElementById('divMessages')
+        }
+        window.addEventListener('load', onDocumentLoad)
+    </script>
+</head>
+<body>
+    <h1>Event Loop</h1>
+    <hr>
+    <input type="text" name="" id="">
+    <div>
+        <progress id="workProgress" value="0" max="100"></progress>
+    </div>
+    <button id="btnDoWork">Do Work</button>
+    <div id="divMessages"></div>
+</body>
+</html>
