@@ -46,14 +46,28 @@
       return p;
     }
 
-    function addAsyncPromiseClient(x, y) {
+    
+
+    
+    function addAsyncPromiseClient_1(x, y) {
       console.log(`[@client] invoking the service`);
       let p = addAsyncPromise(x, y);
       p.then(result => {
         console.log(`[@client] result = ${result}`);
       })
-    }
+      return 'something dummy!'
+    } 
 
-    window['addAsyncPromiseClient'] = addAsyncPromiseClient;
+    window["addAsyncPromiseClient_1"] = addAsyncPromiseClient_1;
+
+    async function addAsyncPromiseClient_2(x, y) {
+      console.log(`[@client] invoking the service`);
+      let p = addAsyncPromise(x, y);
+      let result = await p
+      console.log(`[@client] result = ${result}`);
+    } 
+    
+    window["addAsyncPromiseClient_2"] = addAsyncPromiseClient_2;
+
 })()
 
