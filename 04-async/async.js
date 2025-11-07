@@ -69,5 +69,24 @@
     
     globalThis["addAsyncPromiseClient_2"] = addAsyncPromiseClient_2;
 
+    // DO NOT USE ASYNC/AWAIT
+    function divideAsyncPromise(x,y){
+        /* return a promise with the result of dividing x by y */
+    }
+
+    function processNos(x,y,z){
+        /* 
+            use the addAsyncPromise() to add x and y
+            use the divideAsyncPromise() to divide the 'result of add operation' by z
+            return the final result
+        */
+    }
+
+    function processNosClient(){
+        /* invoke processNos with (100, 200, 3) and print the result */
+    }
+
+    globalThis['processNosClient'] = processNosClient
+
 })()
 
